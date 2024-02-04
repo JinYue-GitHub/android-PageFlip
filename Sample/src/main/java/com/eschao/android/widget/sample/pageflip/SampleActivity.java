@@ -35,13 +35,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 /**
  * Sample Activity
  *
  * @author eschao
  */
-public class SampleActivity extends Activity implements OnGestureListener {
+//public class SampleActivity extends Activity implements OnGestureListener {
+public class SampleActivity extends Activity  implements OnGestureListener {
 
     PageFlipView mPageFlipView;
     GestureDetector mGestureDetector;
@@ -49,21 +51,30 @@ public class SampleActivity extends Activity implements OnGestureListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//
+        setContentView(R.layout.sample_main);
 
-        mPageFlipView = new PageFlipView(this);
-        setContentView(mPageFlipView);
+        mPageFlipView = (PageFlipView)findViewById(R.id.pageFlipView);
+
+        // 查找并设置Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+
+//        mPageFlipView = new PageFlipView(this);
+//        setContentView(mPageFlipView);
+
         mGestureDetector = new GestureDetector(this, this);
 
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             mPageFlipView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_IMMERSIVE |
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                    View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     }
 
@@ -107,7 +118,7 @@ public class SampleActivity extends Activity implements OnGestureListener {
         }
 
         SharedPreferences pref = PreferenceManager
-                                    .getDefaultSharedPreferences(this);
+                .getDefaultSharedPreferences(this);
         int pixels = pref.getInt("MeshPixels", mPageFlipView.getPixelsOfMesh());
         switch (pixels) {
             case 2:
@@ -133,7 +144,7 @@ public class SampleActivity extends Activity implements OnGestureListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean isHandled = true;
         SharedPreferences pref = PreferenceManager
-                                    .getDefaultSharedPreferences(this);
+                .getDefaultSharedPreferences(this);
         Editor editor = pref.edit();
         switch (item.getItemId()) {
             case R.id.animation_1s:
@@ -228,7 +239,7 @@ public class SampleActivity extends Activity implements OnGestureListener {
 
     private void showAbout() {
         View aboutView = getLayoutInflater().inflate(R.layout.about, null,
-                                                     false);
+                false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.mipmap.ic_launcher);

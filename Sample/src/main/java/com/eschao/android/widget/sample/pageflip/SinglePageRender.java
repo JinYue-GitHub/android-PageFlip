@@ -22,6 +22,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.eschao.android.widget.pageflip.Page;
@@ -71,12 +72,14 @@ public class SinglePageRender extends PageRender {
                 // create new one
                 if (!page.isSecondTextureSet()) {
                     drawPage(mPageNo + 1);
+                    Log.d("hello", "onDrawFrame: isSecondTextureSet");
                     page.setSecondTexture(mBitmap);
                 }
             }
             // in backward flip, check first texture of first page is valid
             else if (!page.isFirstTextureSet()) {
                 drawPage(--mPageNo);
+                Log.d("hello", "onDrawFrame: isFirstTextureSet");
                 page.setFirstTexture(mBitmap);
             }
 
@@ -87,6 +90,7 @@ public class SinglePageRender extends PageRender {
         else if (mDrawCommand == DRAW_FULL_PAGE) {
             if (!page.isFirstTextureSet()) {
                 drawPage(mPageNo);
+                Log.d("hello", "onDrawFrame: DRAW_FULL_PAGE");
                 page.setFirstTexture(mBitmap);
             }
 
@@ -126,6 +130,7 @@ public class SinglePageRender extends PageRender {
                                       Bitmap.Config.ARGB_8888);
         mCanvas.setBitmap(mBitmap);
         LoadBitmapTask.get(mContext).set(width, height, 1);
+        Log.d("hello", "onSurfaceChanged: ");
     }
 
     /**

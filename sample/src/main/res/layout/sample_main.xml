@@ -5,7 +5,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context="com.eschao.android.widget.sample.pageflip.SampleActivity"
->
+    tools:context="com.eschao.android.widget.sample.pageflip.SampleActivity">
+
+    <android.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary" />
+
+    <com.eschao.android.widget.sample.pageflip.PageFlipView
+        android:id="@+id/pageFlipView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 其他布局内容 -->
 
 </LinearLayout>
